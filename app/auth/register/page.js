@@ -81,8 +81,8 @@ export default function RegisterPage() {
   };
 
   return (
-    <section className="bg-white">
-      <h3 className="my-2 text-[38px] font-semibold text-center text-gray-500">
+    <section className="w-full max-w-xl mx-auto overflow-hidden bg-black/30 backdrop-blur-md rounded py-6">
+      <h3 className="my-2 text-[38px] font-semibold text-center ">
         Create your account
       </h3>
       <div className="container flex items-center justify-center px-6 mx-auto">

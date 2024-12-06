@@ -42,20 +42,20 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="w-full max-w-sm mx-auto overflow-hidden">
-      <div className="px-6 py-4">
-        <h3 className="my-2 text-xl font-medium text-center text-gray-600">
+    <div className="w-full max-w-sm mx-auto overflow-hidden bg-black/30 backdrop-blur-md rounded py-6">
+      <div className="px-6 ">
+        <h3 className="my-2 text-xl font-medium text-center ">
           Welcome Back
         </h3>
 
-        <p className="mb-10 text-center text-gray-500 ">
+        <p className="mb-10 text-center  ">
           Login or create account
         </p>
 
         <form onSubmit={handleLogin}>
           <div className="w-full mt-4">
             <input
-              className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg focus:border-blue-400  focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"
+              className="block w-full px-4 py-2 mt-2 placeholder-gray-500 bg-white border rounded-lg focus:border-blue-400  focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"
               type="email"
               placeholder="Email Address"
               aria-label="Email Address"
@@ -67,7 +67,7 @@ export default function LoginPage() {
 
           <div className="w-full mt-4">
             <input
-              className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg focus:border-blue-400  focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"
+              className="block w-full px-4 py-2 mt-2  placeholder-gray-500 bg-white border rounded-lg focus:border-blue-400  focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"
               type="password"
               placeholder="Password"
               aria-label="Password"
@@ -80,7 +80,7 @@ export default function LoginPage() {
           {error && <p className="mt-2 text-sm text-red-600 ">{error}</p>}
 
           <div className="flex items-center justify-between mt-4">
-            <a href="#" className="text-sm text-gray-600 hover:text-gray-500">
+            <a href="#" className="text-sm hover:text-blue-500">
               Forget Password?
             </a>
 
@@ -94,8 +94,8 @@ export default function LoginPage() {
         </form>
       </div>
 
-      <div className="flex items-center justify-center py-4 text-center bg-gray-50 ">
-        <span className="text-sm text-gray-600">
+      <div className="flex items-center justify-center py-4 text-center ">
+        <span className="text-sm ">
           Don&apos;t have an account?{" "}
         </span>
         <a
