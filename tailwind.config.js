@@ -7,11 +7,19 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        comback: ["CombackHome", "sans-serif"],
+        super: ["SuperPixel", "sans-serif"],
+        wow: ["WowDino", "sans-serif"],
+      },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
     },
   },
-  plugins: [],
+  plugins: [require("daisyui")],
+  daisyui: {
+    themes: ["light"],
+  },
 };
