@@ -86,7 +86,7 @@ export default function RegisterPage() {
         Create your account
       </h3>
       <div className="container flex items-center justify-center px-6 mx-auto">
-        <form className="w-full max-w-md" onSubmit={handleRegister}>
+        <form className="w-full max-w-md !text-gray-800" onSubmit={handleRegister} >
           <div className="relative flex items-center mt-8">
             <span className="absolute">
               <svg

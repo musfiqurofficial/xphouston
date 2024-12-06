@@ -279,7 +279,7 @@ const Navbar = () => {
                   </Link>
                   <Link
                     href="/auth/register"
-                    className="mt-2 transition-colors duration-300 transform lg:mt-0 lg:mx-1 hover:text-gray-900 bg-slate-100 hover:bg-slate-200 px-6 py-2 rounded-full"
+                    className="mt-2 transition-colors duration-300 transform lg:mt-0 lg:mx-1 text-gray-900 hover:text-gray-900 bg-slate-100 hover:bg-slate-200 px-6 py-2 rounded-full"
                   >
                     Register
                   </Link>

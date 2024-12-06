@@ -54,14 +54,17 @@ export default function FestivalMap() {
   };
 
   // Handle password submission
+  const [errorMessage, setErrorMessage] = useState("");
+
   const handleSubmitPassword = (event) => {
     event.preventDefault();
     if (password === locations[selectedLocation].password) {
       setShowPasswordPrompt(false);
       setLocationInfo(locations[selectedLocation]);
       setIsMapVisible(false);
+      setErrorMessage("");
     } else {
-      alert("Incorrect password");
+      setErrorMessage("Incorrect password, please try again.");
     }
     setPassword("");
   };
@@ -80,7 +83,7 @@ export default function FestivalMap() {
     <div>
       {/* Main Container */}
       <div className="px-4 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 pt-10">
-        <h2 className="max-w-lg mb-4 font-sans text-3xl font-bold leading-none tracking-tight text-gray-900 sm:text-4xl md:mx-auto text-center">
+        <h2 className="max-w-lg mb-4 font-sans text-3xl font-bold leading-none tracking-tight text-white sm:text-4xl md:mx-auto text-center">
           Festival Map
         </h2>
 
@@ -112,8 +115,10 @@ export default function FestivalMap() {
         {/* Location Information */}
         {!isMapVisible && locationInfo && (
           <div style={styles.locationCardVisible} className="text-center">
-            <h2 className="text-xl font-bold">{locationInfo.name}</h2>
-            <p className="text-gray-700">{locationInfo.description}</p>
+            <h2 className="text-xl text-white font-bold">
+              {locationInfo.name}
+            </h2>
+            <p className="text-gray-100">{locationInfo.description}</p>
             <button
               className="mt-4 bg-blue-500 text-white px-4 py-2 rounded"
               onClick={handleBackToMap}
@@ -126,8 +131,8 @@ export default function FestivalMap() {
 
       {/* Password Modal */}
       {showPasswordPrompt && (
-        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center">
-          <div className="bg-white p-6 rounded shadow-lg relative">
+        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center transition-opacity duration-300">
+          <div className="bg-white p-6 rounded shadow-lg relative w-11/12 max-w-md">
             <button
               className="absolute -top-2 -right-2 bg-red-500 text-white w-8 h-8 rounded-full flex justify-center items-center"
               onClick={handleCloseModal}
@@ -135,18 +140,23 @@ export default function FestivalMap() {
               <IoCloseOutline className="w-5 h-5" />
             </button>
 
-            <h3 className="text-lg font-semibold mb-4">Password Protected</h3>
+            <h3 className="text-lg font-semibold mb-4 text-black text-center">
+              Password Protected
+            </h3>
             <form onSubmit={handleSubmitPassword}>
               <input
                 type="password"
                 placeholder="Type Password ..."
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full mb-4 p-2 border rounded"
+                className="w-full mb-4 p-2 border rounded text-black"
               />
+              {errorMessage && (
+                <p className="text-red-500 text-sm mb-2">{errorMessage}</p>
+              )}
               <button
                 type="submit"
-                className="bg-blue-500 text-white px-4 py-2 rounded"
+                className="bg-blue-500 text-white px-4 py-2 rounded w-full"
               >
                 Submit
               </button>

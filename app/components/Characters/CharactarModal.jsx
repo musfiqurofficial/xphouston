@@ -133,7 +133,7 @@ const CharacterModal = ({ isOpen, closeModal, character }) => {
             </button>
             {!isAuthenticated ? (
               <div className="text-center">
-                <h2 className="text-xl font-bold mb-4">Password Protected</h2>
+                <h2 className="text-xl font-bold mb-4 text-black">Password Protected</h2>
                 <input
                   type="password"
                   value={password}

@@ -7,8 +7,8 @@ export default function StorylinePage() {
   return (
     <>
       <Storyline />
-      <NewsBrief />
-      <BreakingNews />
+      {/* <NewsBrief />
+      <BreakingNews /> */}
     </>
   );
 }

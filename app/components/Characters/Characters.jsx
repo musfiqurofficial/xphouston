@@ -104,11 +104,11 @@ const Characters = () => {
             {/* <TbArrowWaveRightUp className="w-[100px] h-[100px] text-blue-500 -mr-20" /> */}
 
             <div className="md:flex justify-center items-center w-full">
-              <div className="grid grid-cols-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+              <div className="grid grid-cols-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 {characters.map((character, index) => (
                   <div
                     key={index}
-                    className="flex items-center justify-center cursor-pointer !overflow-visible"
+                    className="flex items-center justify-center cursor-pointer !overflow-visible hover:scale-105 transition-transform"
                     onClick={() => openModal(character)}
                   >
                     <Image
