@@ -6,7 +6,7 @@ import Image from "next/image";
 // Import character images
 import CharactersImg1 from "../../asset/characters/character (1).webp";
 import CharactersImg2 from "../../asset/characters/character (2).webp";
-import CharactersImg3 from "../../asset/characters/character (3).webp";
+import CharactersImg3 from "../../asset/characters/character (6).webp";
 import CharactersImg4 from "../../asset/characters/character (4).webp";
 import CharactersImg5 from "../../asset/characters/character (5).webp";
 import ques from "../../asset/DJV JUL 2358-20.jpg";
@@ -81,6 +81,7 @@ const Characters = () => {
       Enemies:
         "Openly distrusts Chester Townsend, referring to him as “a man in shadows.”",
     },
+    
   ];
 
   const openModal = (character) => {
