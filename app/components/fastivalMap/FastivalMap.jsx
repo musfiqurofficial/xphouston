@@ -1,10 +1,13 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { IoCloseOutline } from "react-icons/io5";
 
-import mapImg from "../../asset/35573.jpg";
+import mapImg from "../../asset/Mechanic (1080 x 1920 px)/1.png";
+import act1Map from "../../asset/Mechanic (1080 x 1920 px)/aCT 1.png";
+import act2Map from "../../asset/Mechanic (1080 x 1920 px)/act 2.png";
+import act3Map from "../../asset/Mechanic (1080 x 1920 px)/Act 3.png";
 
 const styles = {
   locationCardVisible: {
@@ -18,6 +21,12 @@ export default function FestivalMap() {
   const [locationInfo, setLocationInfo] = useState(null);
   const [isMapVisible, setIsMapVisible] = useState(true);
   const [selectedLocation, setSelectedLocation] = useState("");
+  const [unlockedActs, setUnlockedActs] = useState({});
+
+  useEffect(() => {
+    const storedData = JSON.parse(localStorage.getItem("unlockedActs")) || {};
+    setUnlockedActs(storedData);
+  }, []);
 
   // Location Data
   const locations = {
@@ -93,9 +102,55 @@ export default function FestivalMap() {
             alt="Festival Map"
             width={800}
             height={800}
-            className="w-auto"
+            className="w-auto h-[560px]"
           />
         </center>
+
+        <div className=" text-center flex justify-center items-center gap-6 my-10">
+          {unlockedActs.act1 && (
+            <div>
+              <h3 className="text-[24px] font-normal font-wow">ACT I - MAP</h3>
+              <Image
+                src={act1Map}
+                alt="Act 1 Map"
+                width={800}
+                height={800}
+                className="w-auto h-[560px] mx-auto"
+              />
+            </div>
+          )}
+          {unlockedActs.act2 && (
+            <div>
+              <h3 className="text-[24px] font-normal font-wow">ACT II - MAP</h3>
+              <Image
+                src={act2Map}
+                alt="Act 2 Map"
+                width={800}
+                height={800}
+                className="w-auto h-[560px] mx-auto"
+              />
+            </div>
+          )}
+          {unlockedActs.act3 && (
+            <div>
+              <h3 className="text-[24px] font-normal font-wow">
+                ACT III - MAP
+              </h3>
+              <Image
+                src={act3Map}
+                alt="Act 3 Map"
+                width={800}
+                height={800}
+                className="w-auto h-[560px] mx-auto"
+              />
+            </div>
+          )}
+          {!Object.keys(unlockedActs).length && (
+            <p className="text-white">
+              Unlock acts in the storyline to view maps!
+            </p>
+          )}
+        </div>
 
         {/* Buttons */}
         {isMapVisible && (

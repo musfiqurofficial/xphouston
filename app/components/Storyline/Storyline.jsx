@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { IoCloseOutline } from "react-icons/io5";
 import Image from "next/image";
 import { Stores } from "@/data/stores";
+import toast from "react-hot-toast";
 
 const Storyline = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -17,9 +18,9 @@ const Storyline = () => {
   const [accuseLocked, setAccuseLocked] = useState(false);
 
   const PASSWORDS = {
-    act1: "qwerty",
-    act2: "qwerty",
-    act3: "qwerty",
+    act1: "FESTIVAL",
+    act2: "SERIAL ",
+    act3: "KILLER",
   };
 
   useEffect(() => {
@@ -48,6 +49,7 @@ const Storyline = () => {
       const updatedUnlockedActs = { ...unlockedActs, [currentAct]: true };
       setUnlockedActs(updatedUnlockedActs);
       localStorage.setItem("unlockedActs", JSON.stringify(updatedUnlockedActs));
+      toast.success(`Act ${currentAct} unlocked successfully!`);
       handleCloseModal();
     } else {
       setErrorMessage("Incorrect password. Please try again.");
@@ -116,8 +118,10 @@ const Storyline = () => {
                     : `Lock ACT ${store.actNumber} Map`}
                 </button>
               ))}
-            <button
-                className={`btn btn-outline ${accuseLocked ? "btn-disabled" : "btn-info"}`}
+              <button
+                className={`btn btn-outline ${
+                  accuseLocked ? "btn-disabled" : "btn-info"
+                }`}
                 onClick={() => !accuseLocked && setKillerModalOpen(true)}
                 disabled={accuseLocked}
               >
@@ -206,13 +210,23 @@ const Storyline = () => {
                   </div>
                 )}
               </div>
-              <Image
-                src={store.imageUrl}
-                alt={`ACT ${store.actNumber}`}
-                width={500}
-                height={500}
-                className="shadow-md rounded lg:-mt-4 w-full"
-              />
+
+              <div className="pb-4">
+                <a href="/festival-map" className="underline text-blue-400">
+                  Go to {`ACT ${store.actNumber}:`} Map
+                </a>
+              </div>
+              <div>
+                <a href="/festival-map">
+                  <Image
+                    src={store.imageUrl}
+                    alt={`ACT ${store.actNumber}`}
+                    width={500}
+                    height={500}
+                    className="shadow-md rounded lg:-mt-4 w-full"
+                  />
+                </a>
+              </div>
             </div>
           ))}
         </div>
