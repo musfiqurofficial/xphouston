@@ -75,7 +75,9 @@ const Storyline = () => {
                 <button
                   key={store.actNumber}
                   className={`btn btn-outline ${
-                    isUnlocked(`act${store.actNumber}`) ? "btn-success" : "btn-warning"
+                    isUnlocked(`act${store.actNumber}`)
+                      ? "btn-success"
+                      : "btn-warning"
                   } font-wow font-normal`}
                   onClick={() => handleToggleLock(`act${store.actNumber}`)}
                 >
@@ -92,7 +94,7 @@ const Storyline = () => {
           {Stores.map((store) => (
             <div
               key={store.actNumber}
-              className={`grid lg:grid-cols-2 gap-10 mb-20 ${
+              className={`space-y-6 mb-20 ${
                 isUnlocked(`act${store.actNumber}`) ? "block" : "hidden"
               }`}
             >
@@ -108,6 +110,28 @@ const Storyline = () => {
                   <em>{store.newspaper.publishDate}</em>
                 </p>
                 <p className="my-2">{store.newspaper.description.tittle}</p>
+
+                {store.newspaper && (
+                  <div className="mt-6 p-4 bg-gray-100 rounded">
+                    <h4 className="text-[18px] font-semibold text-gray-800 mb-2">
+                      {store.newspaper.name} - {store.newspaper.publishDate}
+                    </h4>
+                    <h5 className="font-bold text-gray-600">
+                      {store.newspaper.description.tittle}
+                    </h5>
+                    <p className="text-sm text-gray-700 mb-2">
+                      {store.newspaper.description.column1}
+                    </p>
+                    <p className="text-sm text-gray-700 mb-2">
+                      {store.newspaper.description.column2}
+                    </p>
+                    {store.newspaper.breakingNews && (
+                      <div className="p-2 bg-red-100 border-l-4 border-red-500 text-red-800">
+                        Breaking News: {store.newspaper.description.column3}
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
               <Image
                 src={store.imageUrl}

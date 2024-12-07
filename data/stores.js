@@ -83,9 +83,9 @@ export const Stores = [
           "Galveston’s festive spirit has been shattered once more. In the dim recesses of Edgar Allan Poe Alley, the lifeless body of Abigail Marsh—a beloved flower vendor known to many—was discovered in the early hours of this morning. Arranged with chilling precision, her tragic demise bears a macabre resemblance to the Whitechapel murders that have gripped London in fear. The similarities are unmistakable, and the killer’s grotesque signature is evident: this is no random act of violence—it is a message.",
         column2:
           "The scene was first stumbled upon by Minerva Hogbush, a striking figure known to many as the enigmatic Woman in Black. Miss Hogbush, drawn by the blood-curdling screams that pierced the silent night, arrived moments after the crime. Her presence was enough to spook the perpetrator, who fled the scene in haste, leaving behind a trail of evidence.",
-        column3: {
-          quot: "“I heard her screams,” Minerva recounted, her voice steady but filled with an undercurrent of sorrow. “When I reached her, it was too late. But I saw him—a shadowy figure, tall, dressed in a dark coat. He turned as I approached and ran. He left something behind, though—something that might bring us closer to the truth.”",
-        },
+        column3:
+          "“I heard her screams,” Minerva recounted, her voice steady but filled with an undercurrent of sorrow. “When I reached her, it was too late. But I saw him—a shadowy figure, tall, dressed in a dark coat. He turned as I approached and ran. He left something behind, though—something that might bring us closer to the truth.”",
+
         column4:
           "The something left behind—evidence yet to be disclosed by the authorities—may hold the key to unmasking this calculating killer. But the details of the crime speak for themselves. Abigail’s body, like those before her, was arranged with unnerving artistry. The position of her limbs, the incisions—every detail suggests a killer who is methodical, practiced, and all too familiar with death.",
         column5:
