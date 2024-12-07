@@ -104,9 +104,6 @@ const CharacterModal = ({ isOpen, closeModal, character }) => {
                           className="w-auto h-[35px]"
                         />
                       </center>
-                      <p className="text-center text-[14px] mt-2 font-mono">
-                        {option}
-                      </p>
                     </div>
                   )
                 )}

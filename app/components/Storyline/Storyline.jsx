@@ -1,11 +1,9 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Image from "next/image";
 import { IoCloseOutline } from "react-icons/io5";
-import storyImg from "../../asset/characters/storyImg1.webp";
-import storyImg2 from "../../asset/characters/storyImg2.webp";
-import storyImg3 from "../../asset/characters/storyImg3.webp";
+import Image from "next/image";
+import { Stores } from "@/data/stores";
 
 const Storyline = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -21,7 +19,6 @@ const Storyline = () => {
   };
 
   useEffect(() => {
-    // Load unlocked acts from localStorage
     const storedData = JSON.parse(localStorage.getItem("unlockedActs")) || {};
     setUnlockedActs(storedData);
   }, []);
@@ -51,13 +48,11 @@ const Storyline = () => {
 
   const handleToggleLock = (act) => {
     if (unlockedActs[act]) {
-      // Lock the act
       const updatedUnlockedActs = { ...unlockedActs };
       delete updatedUnlockedActs[act];
       setUnlockedActs(updatedUnlockedActs);
       localStorage.setItem("unlockedActs", JSON.stringify(updatedUnlockedActs));
     } else {
-      // Unlocking requires modal
       handleOpenModal(act);
     }
   };
@@ -76,88 +71,56 @@ const Storyline = () => {
               First <span className="md:block">Edition</span>
             </h2>
             <div className="flex flex-col md:flex-row gap-6 mb-10 md:mb-0">
-              {["act1", "act2", "act3"].map((act, index) => (
+              {Stores.map((store, index) => (
                 <button
-                  key={act}
+                  key={store.actNumber}
                   className={`btn btn-outline ${
-                    isUnlocked(act) ? "btn-success" : "btn-warning"
+                    isUnlocked(`act${store.actNumber}`) ? "btn-success" : "btn-warning"
                   } font-wow font-normal`}
-                  onClick={() => handleToggleLock(act)}
+                  onClick={() => handleToggleLock(`act${store.actNumber}`)}
                 >
-                  {isUnlocked(act) ? `Unlocked ACT ${index + 1}` : `Lock ACT ${index + 1} Map`}
+                  {isUnlocked(`act${store.actNumber}`)
+                    ? `Unlocked ACT ${store.actNumber}`
+                    : `Lock ACT ${store.actNumber} Map`}
                 </button>
               ))}
+              <button className="btn btn-outline btn-info">Accuse</button>
             </div>
           </div>
-          {/* Act Content */}
-          <div className="grid lg:grid-cols-2 gap-10 mb-20">
-            {isUnlocked("act1") && (
-              <>
-                <div>
-                  <h3 className="text-[32px] font-medium">ACT I:</h3>
-                  <h5 className="text-[18px] font-semibold mt-4">
-                    Shadows at Night
-                  </h5>
-                  <p className="my-2 text-justify">
-                    The bustling streets of Galveston are alight with festive cheer...
-                  </p>
-                </div>
-                <Image
-                  src={storyImg}
-                  alt="ACT I"
-                  width={500}
-                  height={500}
-                  className="shadow-md rounded lg:-mt-4 w-full"
-                />
-              </>
-            )}
-          </div>
-          <div className="grid lg:grid-cols-2 gap-10 mb-20">
-            {isUnlocked("act2") && (
-              <>
-                <Image
-                  src={storyImg2}
-                  alt="ACT II"
-                  width={500}
-                  height={500}
-                  className="shadow-md rounded lg:-mt-4 w-full"
-                />
-                <div>
-                  <h3 className="text-[32px] font-medium">ACT II:</h3>
-                  <h5 className="text-[18px] font-semibold mt-4">
-                    Galveston’s Night of Secrets
-                  </h5>
-                  <p className="my-2 text-justify">
-                    Galveston’s dark alleys hold more than just shadows...
-                  </p>
-                </div>
-              </>
-            )}
-          </div>
-          <div className="grid lg:grid-cols-2 gap-10 mb-20">
-            {isUnlocked("act3") && (
-              <>
-                <div>
-                  <h3 className="text-[32px] font-medium">ACT III:</h3>
-                  <h5 className="text-[18px] font-semibold mt-4">
-                    The Ripper’s Return?
-                  </h5>
-                  <p className="my-2 text-justify">
-                    The body of Abigail Marsh lies in Poe Alley, her lifeless form arranged...
-                  </p>
-                </div>
-                <Image
-                  src={storyImg3}
-                  alt="ACT III"
-                  width={500}
-                  height={500}
-                  className="shadow-md rounded lg:-mt-4 w-full"
-                />
-              </>
-            )}
-          </div>
+
+          {/* Render Act Content */}
+          {Stores.map((store) => (
+            <div
+              key={store.actNumber}
+              className={`grid lg:grid-cols-2 gap-10 mb-20 ${
+                isUnlocked(`act${store.actNumber}`) ? "block" : "hidden"
+              }`}
+            >
+              <div>
+                <h3 className="text-[32px] font-medium">{`ACT ${store.actNumber}:`}</h3>
+                <h5 className="text-[18px] font-semibold mt-4">{store.name}</h5>
+                <p className="my-2 text-justify">{store.story}</p>
+                <h5 className="text-[18px] font-semibold mt-4">Objective:</h5>
+                <p className="my-2 text-justify">{store.objective}</p>
+                <h5 className="text-[18px] font-semibold mt-4">Newspaper:</h5>
+                <p className="my-2">
+                  <strong>{store.newspaper.name}</strong> -{" "}
+                  <em>{store.newspaper.publishDate}</em>
+                </p>
+                <p className="my-2">{store.newspaper.description.tittle}</p>
+              </div>
+              <Image
+                src={store.imageUrl}
+                alt={`ACT ${store.actNumber}`}
+                width={500}
+                height={500}
+                className="shadow-md rounded lg:-mt-4 w-full"
+              />
+            </div>
+          ))}
         </div>
       </div>
+
       {/* Modal */}
       {modalOpen && (
         <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center transition-opacity duration-300 z-50">

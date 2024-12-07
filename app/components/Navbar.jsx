@@ -126,12 +126,6 @@ const Navbar = () => {
                 </Link>
 
                 <Link
-                  href="/inventory"
-                  className="mt-2 transition-colors duration-300 transform lg:mt-0 lg:mx-4 hover:text-gray-900"
-                >
-                  Inventory
-                </Link>
-                <Link
                   href="/characters"
                   className="mt-2 transition-colors duration-300 transform lg:mt-0 lg:mx-4 hover:text-gray-900"
                 >
