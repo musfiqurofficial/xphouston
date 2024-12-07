@@ -14,6 +14,7 @@ const Storyline = () => {
   const [killerModalOpen, setKillerModalOpen] = useState(false);
   const [killerName, setKillerName] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const [accuseLocked, setAccuseLocked] = useState(false);
 
   const PASSWORDS = {
     act1: "qwerty",
@@ -23,7 +24,11 @@ const Storyline = () => {
 
   useEffect(() => {
     const storedData = JSON.parse(localStorage.getItem("unlockedActs")) || {};
+    const storedAccuseLocked =
+      JSON.parse(localStorage.getItem("accuseLocked")) || false;
+
     setUnlockedActs(storedData);
+    setAccuseLocked(storedAccuseLocked);
   }, []);
 
   const handleOpenModal = (act) => {
@@ -72,6 +77,8 @@ const Storyline = () => {
       if (response.ok) {
         setSuccessMessage("Your submission has been recorded!");
         setKillerName("");
+        setAccuseLocked(true);
+        localStorage.setItem("accuseLocked", true);
       } else {
         setErrorMessage("Error submitting your entry. Please try again.");
       }
@@ -109,45 +116,52 @@ const Storyline = () => {
                     : `Lock ACT ${store.actNumber} Map`}
                 </button>
               ))}
-              <button
-              className="btn btn-outline btn-info"
-              onClick={() => setKillerModalOpen(true)}
-            >
-              Accuse
-            </button>
+            <button
+                className={`btn btn-outline ${accuseLocked ? "btn-disabled" : "btn-info"}`}
+                onClick={() => !accuseLocked && setKillerModalOpen(true)}
+                disabled={accuseLocked}
+              >
+                {accuseLocked ? "Accuse (Locked)" : "Accuse"}
+              </button>
             </div>
           </div>
 
           {killerModalOpen && (
-        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center z-50 text-[#444]">
-          <div className="relative bg-white p-6 rounded shadow-lg w-11/12 max-w-md">
-            <h3 className="text-lg font-semibold mb-4 text-center">Submit Killer Name</h3>
-            <form onSubmit={handleKillerSubmit}>
-              <input
-                type="text"
-                placeholder="Enter killer's name..."
-                value={killerName}
-                onChange={(e) => setKillerName(e.target.value)}
-                className="w-full mb-4 p-2 border rounded"
-              />
-              {successMessage && <p className="text-green-500 mb-2">{successMessage}</p>}
-              {errorMessage && <p className="text-red-500 mb-2">{errorMessage}</p>}
-              <button
-                type="submit"
-                className="bg-blue-500 text-white px-4 py-2 rounded w-full"
-              >
-                Submit
-              </button>
-            </form>
-            <button
-              className="absolute -top-2 -right-2 bg-red-500 text-white w-8 h-8 rounded-full flex justify-center items-center"
-              onClick={() => setKillerModalOpen(false)}
-            >
-              <IoCloseOutline className="w-5 h-5" />
-            </button>
-          </div>
-        </div>
-      )}
+            <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center z-50 text-[#444]">
+              <div className="relative bg-white p-6 rounded shadow-lg w-11/12 max-w-md">
+                <h3 className="text-lg font-semibold mb-4 text-center">
+                  Submit Killer Name
+                </h3>
+                <form onSubmit={handleKillerSubmit}>
+                  <input
+                    type="text"
+                    placeholder="Enter killer's name..."
+                    value={killerName}
+                    onChange={(e) => setKillerName(e.target.value)}
+                    className="w-full mb-4 p-2 border rounded"
+                  />
+                  {successMessage && (
+                    <p className="text-green-500 mb-2">{successMessage}</p>
+                  )}
+                  {errorMessage && (
+                    <p className="text-red-500 mb-2">{errorMessage}</p>
+                  )}
+                  <button
+                    type="submit"
+                    className="bg-blue-500 text-white px-4 py-2 rounded w-full"
+                  >
+                    Submit
+                  </button>
+                </form>
+                <button
+                  className="absolute -top-2 -right-2 bg-red-500 text-white w-8 h-8 rounded-full flex justify-center items-center"
+                  onClick={() => setKillerModalOpen(false)}
+                >
+                  <IoCloseOutline className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+          )}
 
           {/* Render Act Content */}
           {Stores.map((store) => (
