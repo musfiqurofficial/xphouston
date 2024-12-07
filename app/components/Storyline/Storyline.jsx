@@ -19,7 +19,7 @@ const Storyline = () => {
 
   const PASSWORDS = {
     act1: "FESTIVAL",
-    act2: "SERIAL ",
+    act2: "SERIAL",
     act3: "KILLER",
   };
 
