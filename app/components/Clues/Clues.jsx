@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { IoCloseOutline } from "react-icons/io5";
 import Image from "next/image";
 import { FaBackspace } from "react-icons/fa";
+import toast from "react-hot-toast";
 
 const Clues = () => {
   const [currentClueIndex, setCurrentClueIndex] = useState(null);
@@ -12,9 +13,13 @@ const Clues = () => {
   const [isPasswordCorrect, setIsPasswordCorrect] = useState(false);
   const [scrambledLetters, setScrambledLetters] = useState([]);
   const [letterStatuses, setLetterStatuses] = useState([]);
-  const [unlockedClues, setUnlockedClues] = useState(() =>
-    Array(clues.length).fill(false)
-  );
+  const [unlockedClues, setUnlockedClues] = useState(() => {
+    return clues.map((_, index) => {
+      const savedClue = localStorage.getItem(`clue-${index}`);
+      return savedClue ? JSON.parse(savedClue) : false;
+    });
+  });
+  
   const [animatedClueIndex, setAnimatedClueIndex] = useState(null);
   const [isFullScreenImage, setIsFullScreenImage] = useState(false);
 
@@ -81,7 +86,7 @@ const Clues = () => {
     e.preventDefault();
     const normalizedPassword = password.toUpperCase();
     const correctPassword = clues[currentClueIndex].password.toUpperCase();
-
+  
     if (normalizedPassword === correctPassword) {
       setIsPasswordCorrect(true);
       setUnlockedClues((prev) => {
@@ -89,7 +94,11 @@ const Clues = () => {
         updated[currentClueIndex] = true;
         return updated;
       });
-
+  
+      // Save the unlocked clue to localStorage
+      localStorage.setItem(`clue-${currentClueIndex}`, JSON.stringify(true));
+      toast.success('Unlock this clue')
+  
       setAnimatedClueIndex(currentClueIndex);
       setTimeout(() => setAnimatedClueIndex(null), 1000);
     } else {
@@ -97,6 +106,7 @@ const Clues = () => {
       setPassword("");
     }
   };
+  
 
   const getLetterColor = (letter, idx) => {
     if (letterStatuses[idx] === "correct") {
@@ -107,11 +117,11 @@ const Clues = () => {
     return "text-black";
   };
 
+  
+
   return (
     <div className="px-4 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
-      <h2 className="text-[32px] text-center mb-6 font-wow">
-        Clues
-      </h2>
+      <h2 className="text-[32px] text-center mb-6 font-wow">Clues</h2>
       <div className="md:flex justify-center items-center w-full">
         <div className="grid grid-cols-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {clues.map((clue, index) => (
@@ -140,7 +150,9 @@ const Clues = () => {
       {/* Modal */}
       {currentClueIndex !== null && (
         <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center z-50">
-          <div className={`bg-white p-6 rounded-[15px] shadow-lg relative w-[90%] md:w-[480px]`}>
+          <div
+            className={`bg-white p-6 rounded-[15px] shadow-lg relative w-[90%] md:w-[480px]`}
+          >
             <button
               className="absolute -top-2 -right-2 bg-red-500 text-white w-8 h-8 rounded-full flex justify-center items-center"
               onClick={handleCloseModal}
@@ -174,7 +186,7 @@ const Clues = () => {
                   ))}
                 </div>
 
-                <form
+                <form 
                   onSubmit={handleSubmitPassword}
                   className="flex justify-between items-center gap-4 mt-10"
                 >
@@ -203,7 +215,7 @@ const Clues = () => {
                 </form>
               </div>
             ) : (
-              <div>
+              <div className="max-h-[60vh] overflow-y-auto">
                 <div
                   className="flex justify-center mb-3 cursor-pointer"
                   onClick={() => setIsFullScreenImage(true)}
@@ -213,15 +225,19 @@ const Clues = () => {
                     height={500}
                     src={clues[currentClueIndex].photo}
                     alt={clues[currentClueIndex].name}
-                    className="mb-4 w-auto h-[45vh] rounded"
+                    className="mb-4 w-auto h-[200px] rounded"
                   />
                 </div>
                 <h3 className="text-[32px] font-semibold mb-4 text-blue-500 font-mono">
                   {clues[currentClueIndex].name}
                 </h3>
-                <p className="text-[18px] text-justify">
+                <p className="text-[18px] text-justify text-black">
                   {clues[currentClueIndex].item}
                 </p>
+                <p className="text-gray-500 whitespace-pre-wrap">
+  {clues[currentClueIndex].description}
+</p>
+
               </div>
             )}
           </div>

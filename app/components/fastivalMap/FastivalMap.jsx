@@ -70,15 +70,7 @@ const FestivalMap = () => {
         <h2 className="max-w-lg mb-4 font-sans text-3xl font-bold leading-none tracking-tight text-white sm:text-4xl md:mx-auto text-center">
           Festival Map
         </h2>
-        <center>
-          <Image
-            src={map}
-            width={500}
-            height={500}
-            alt=""
-            className="w-auto h-[400px] "
-          />
-        </center>
+        
         <div className="text-center my-10">{renderActMap()}</div>
       </div>
     </div>
