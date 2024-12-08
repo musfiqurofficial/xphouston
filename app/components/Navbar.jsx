@@ -115,7 +115,7 @@ const Navbar = () => {
                 isOpen
                   ? "translate-x-0 opacity-100 bg-black/70 backdrop-blur-lg"
                   : "opacity-0 -translate-x-full"
-              } absolute inset-x-0 flex-1 w-full px-6 py-4 transition-all duration-300 ease-in-out  lg:mt-0 lg:p-0 lg:top-0 lg:relative lg:bg-transparent lg:w-auto lg:opacity-100 lg:translate-x-0 lg:flex lg:items-center lg:justify-between top-20 !z-50`}
+              } absolute inset-x-0 flex-1 w-full px-6 py-4 transition-all duration-300 ease-in-out  lg:mt-0 lg:p-0 lg:top-0 lg:relative lg:bg-transparent lg:w-auto lg:opacity-100 lg:translate-x-0 lg:flex lg:items-center lg:justify-between top-20 z-50`}
             >
               <div className="flex flex-col text-white md:text-gray-200 font-medium capitalize lg:flex lg:px-16 lg:-mx-4 lg:flex-row lg:items-center">
                 <Link

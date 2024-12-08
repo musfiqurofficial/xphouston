@@ -5,8 +5,10 @@ import { IoCloseOutline } from "react-icons/io5";
 import Image from "next/image";
 import { Stores } from "@/data/stores";
 import toast from "react-hot-toast";
+import { useUser } from "@/app/context/UserContext";
 
 const Storyline = () => {
+  const { user } = useUser();
   const [modalOpen, setModalOpen] = useState(false);
   const [currentAct, setCurrentAct] = useState("");
   const [password, setPassword] = useState("");
@@ -69,11 +71,16 @@ const Storyline = () => {
 
   const handleKillerSubmit = async (e) => {
     e.preventDefault();
+    if (!user || !user.email) {
+      setErrorMessage("You must be logged in to submit.");
+      return;
+    }
+
     try {
       const response = await fetch("/api/submit-killer", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: killerName }),
+        body: JSON.stringify({ name: killerName, email: user.email }),
       });
 
       if (response.ok) {
@@ -88,6 +95,7 @@ const Storyline = () => {
       setErrorMessage("Network error. Please try again.");
     }
   };
+
 
   const isUnlocked = (act) => unlockedActs[act];
 
